@@ -4,7 +4,6 @@ const Offer = require("../models/Offer");
 const User = require("../models/User");
 const isAuthenticated = require("../middleware/isAuthenticated");
 const cloudinary = require("cloudinary").v2;
-const { off } = require("../models/Offer");
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
     try {
@@ -121,7 +120,6 @@ router.delete("/offer/delete", isAuthenticated, async (req, res) => {
         const temp = await Offer.findById(req.fields.id);
         await Offer.findByIdAndDelete(req.fields.id);
         if (temp) {
-            console.log("OK");
             await cloudinary.uploader.destroy(temp.product_image.public_id); // Must be improved to delete the empty folder in cloudinary
             res.status(200).json({ message: "This offer has been deleted" });
         } else {
@@ -141,12 +139,12 @@ router.get("/offers", async (req, res) => {
             title = /[A-Z]/;
         }
 
-        let priceMin = 0; // Must be improved with lowest product_price
+        let priceMin = 0; // Might be improved with lowest product_price
         if (req.query.priceMin) {
             priceMin = req.query.priceMin;
         }
 
-        let priceMax = 100000; // Must be improved with highest product_price
+        let priceMax = 100000; // Might be improved with highest product_price
         if (req.query.priceMax) {
             priceMax = req.query.priceMax;
         }
