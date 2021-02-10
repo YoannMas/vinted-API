@@ -168,6 +168,7 @@ router.get("/offers", async (req, res) => {
     const count = await Offer.countDocuments({ product_name: title, product_price: { $gte: priceMin, $lte: priceMax } });
 
     const offers = await Offer.find({ product_name: title, product_price: { $gte: priceMin, $lte: priceMax } })
+      .populate("owner")
       .sort({ product_price: sort })
       .skip(skip)
       .limit(limit);
