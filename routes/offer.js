@@ -157,7 +157,7 @@ router.get("/offers", async (req, res) => {
     }
 
     let skip = 0;
-    let limit = 20;
+    let limit = 10;
     if (req.query.limit) {
       limit = Number(req.query.limit);
     }
