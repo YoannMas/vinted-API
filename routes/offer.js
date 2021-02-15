@@ -11,28 +11,31 @@ router.post("/offer/publish", isAuthenticated, async (req, res) => {
     if (req.fields.title.length < 50) {
       if (req.fields.description.length < 500) {
         if (req.fields.price < 100000) {
-          const newOffer = new Offer({
-            product_name: req.fields.title,
-            product_description: req.fields.description,
-            product_price: req.fields.price,
-            product_details: [
-              { MARQUE: req.fields.brand },
-              { TAILLE: req.fields.size },
-              { ETAT: req.fields.condition },
-              { COULEUR: req.fields.color },
-              { VILLE: req.fields.location },
-            ],
-            owner: req.user,
-          });
           if (req.files.picture) {
+            const newOffer = new Offer({
+              product_name: req.fields.title,
+              product_description: req.fields.description,
+              product_price: req.fields.price,
+              product_details: [
+                { MARQUE: req.fields.brand },
+                { TAILLE: req.fields.size },
+                { ETAT: req.fields.condition },
+                { COULEUR: req.fields.color },
+                { VILLE: req.fields.location },
+              ],
+              owner: req.user,
+            });
             const result = await cloudinary.uploader.upload(req.files.picture.path, {
               folder: `/vinted/offer/${newOffer._id}`,
             });
             newOffer.product_image = result;
             newOffer.product_pictures.push(result);
+
+            await newOffer.save();
+            res.status(200).json(newOffer);
+          } else {
+            res.status(400).json({ message: "A picture is mandatory" });
           }
-          await newOffer.save();
-          res.status(200).json(newOffer);
         } else {
           res.status(400).json({ message: "Price must be lower than 100000" });
         }
