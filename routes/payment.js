@@ -3,7 +3,7 @@ const formidable = require("express-formidable");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const app = express();
-app.use(formidable());
+app.route(formidable());
 
 router.post("/pay", async (req, res) => {
   try {
