@@ -4,7 +4,7 @@ const { route } = require("./user");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const app = express();
-// route.use(formidable());
+route.use(formidable());
 
 router.post("/pay", async (req, res) => {
   try {
