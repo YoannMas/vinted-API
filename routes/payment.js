@@ -1,11 +1,13 @@
 const express = require("express");
 const formidable = require("express-formidable");
+const cors = require("cors");
 const router = express.Router();
 const stripe = require("stripe")(
   "sk_test_51ILS14CIE24WqIUsZEKUcR01qj3LwtWvXeZPPl4MJNngYGJEVmJdWRUnsQIkebrnA38LHcM9tF8rOmZNDDOJOhNQ00THscMZie"
 );
 const app = express();
 app.use(formidable());
+app.use(cors());
 
 router.post("/pay", async (req, res) => {
   try {
