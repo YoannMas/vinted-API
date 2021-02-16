@@ -1,9 +1,10 @@
 const express = require("express");
 const formidable = require("express-formidable");
+const { route } = require("./user");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const app = express();
-app.route(formidable());
+route.use(formidable());
 
 router.post("/pay", async (req, res) => {
   try {
@@ -13,7 +14,6 @@ router.post("/pay", async (req, res) => {
       description: req.fields.title,
       source: req.fields.stripeToken,
     });
-    console.log(response);
     if (response.status === "succeded") {
       res.status(200).json({ message: "Payment succeeded" });
     }
