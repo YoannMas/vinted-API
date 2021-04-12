@@ -36,7 +36,7 @@ More information about this project on <a href="https://github.com/YoannMas/vint
 Clone this repository 
 
 ```
-git clone https://github.com/YoannMas/deliveroo-front-redux.git
+git clone https://github.com/YoannMas/vinted-API.git
 ```
 
 Install dependencies
