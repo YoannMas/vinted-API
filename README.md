@@ -1,6 +1,6 @@
 # Vinted - Backend
 
-This is the backend API for Vinted project is made with Nodejs.
+This is the backend API for Vinted project made with Nodejs.
 More information about this project on <a href="https://github.com/YoannMas/vinted-react">Frontend repository</a>.
 
 ## Dependencies
